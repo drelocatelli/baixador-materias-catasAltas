@@ -11,7 +11,7 @@ interface IPosts {
 }
 
 class ExampleSpec extends AutomationTestSetup {
-  pageNumber: number = 0;
+  pageNumber: number = -1;
   page: Page;
   browser: Browser;
 
@@ -24,12 +24,12 @@ class ExampleSpec extends AutomationTestSetup {
       fs.unlinkSync("data.json");
     }
 
-    this.assert();
+    this.nextPage();
   }
 
   async nextPage() {
     this.pageNumber++;
-    await this.page.waitForTimeout(500);
+    await this.page.waitForTimeout(800);
 
     //@ts-ignore
     await this.page.evaluate((pageNumber: any) => {
