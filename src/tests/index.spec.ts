@@ -29,7 +29,6 @@ class ExampleSpec extends AutomationTestSetup {
 
   async nextPage() {
     this.pageNumber++;
-    await this.page.waitForTimeout(800);
 
     //@ts-ignore
     await this.page.evaluate((pageNumber: any) => {
