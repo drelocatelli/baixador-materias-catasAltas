@@ -48,15 +48,9 @@ class ExampleSpec extends AutomationTestSetup {
       await this.downloadPosts(this.page);
     } catch (error) {
       console.log(error);
-      fs.writeFile("log.txt", JSON.stringify(error), (err) => {
-        if (err) {
-          console.error("An error occurred while writing to the file:", err);
-          return;
-        }
-
-        console.log("Content has been written to the file successfully.");
-      });
     }
+
+    await this.browser.close();
   }
 
   async downloadPosts(page: Page): Promise<void> {
