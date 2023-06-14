@@ -19,26 +19,31 @@ abstract class AutomationTestSetup {
                 },
             }),
         );
-        const browser = await puppeteer.launch({ headless: false, defaultViewport: null, args: ['--start-maximized'] });
+        const browser = await puppeteer.launch({
+            //@ts-ignore
+            headless: process.env.HEADLESS ? process.env.HEADLESS : false,
+            defaultViewport: null,
+            args: ['--start-maximized'],
+        });
         const page = await browser.newPage();
-        
+
         await this.open(page, url, waitInitialContainer);
-        
+
         return { browser, page };
     }
-    
+
     async open(page: Page, url: string, waitInitialContainer?: string) {
         await page.goto(url);
-        if(waitInitialContainer) {
+        if (waitInitialContainer) {
             await page.waitForSelector(waitInitialContainer);
         }
     }
 
     protected async getFilesInDir(dir: string) {
         const files = fs.readdirSync(dir);
-        return files.filter(f => !f.startsWith('basic')).map(t => t = t.replace('.spec.ts', ''));
+        return files.filter((f) => !f.startsWith('basic')).map((t) => (t = t.replace('.spec.ts', '')));
     }
-    
+
     randomNumber(quantity: number) {
         let num = '';
         for (let i = 0; i < quantity; i++) {
@@ -48,7 +53,7 @@ abstract class AutomationTestSetup {
         return randomNum.toString();
     }
 
-    generateRandomUser(charactersQuantity: number) : string {
+    generateRandomUser(charactersQuantity: number): string {
         let username = '';
         const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
         const charactersLength = characters.length;
@@ -59,7 +64,7 @@ abstract class AutomationTestSetup {
 
         return username;
     }
-    
+
     async readConsole(question: string) {
         const rl = readline.createInterface({
             input: process.stdin,
@@ -96,8 +101,6 @@ abstract class AutomationTestSetup {
             message,
         );
     }
-
-
 }
 
 export default AutomationTestSetup;

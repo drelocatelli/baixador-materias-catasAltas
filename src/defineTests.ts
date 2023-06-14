@@ -1,10 +1,10 @@
-import IndexSpec from './tests/index.spec';
 import { DefinedTest } from '../bootstrap/definedTests.types';
+import ExampleSpec from './tests/index.spec';
 
 const definedTests: DefinedTest[] = [
     {
         name: 'Baixar matérias',
-        class: IndexSpec,
+        class: ExampleSpec,
     },
 ];
 
