@@ -19,12 +19,16 @@ abstract class AutomationTestSetup {
                 },
             }),
         );
+
+        const headless = process.env.HEADLESS ? JSON.parse(process.env.HEADLESS) : false;
+
         const browser = await puppeteer.launch({
             //@ts-ignore
-            headless: process.env.HEADLESS ? process.env.HEADLESS : false,
+            headless: headless ? 'new' : false,
             defaultViewport: null,
             args: ['--start-maximized'],
         });
+
         const page = await browser.newPage();
 
         await this.open(page, url, waitInitialContainer);
